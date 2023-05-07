@@ -5,7 +5,7 @@ const initialState = { token: null, expires: 3600 };
 
 export const fetchAuth = createAsyncThunk(
   'auth/fetchAuth',
-  async ({ email, password, isLogin }, { dispatch }) => {
+  async ({ email, password, isLogin }) => {
     const authData = {
       email,
       password,

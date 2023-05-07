@@ -17,7 +17,7 @@ const Drawer = ({ isOpen, onClose }) => {
       {
         to: 'quiz-creator',
         label: 'Створити тест',
-        exact: false,
+        exact: true,
         id: uuidv4(),
       },
       { to: 'logout', label: 'Вихід', exact: true, id: uuidv4() }
@@ -26,7 +26,7 @@ const Drawer = ({ isOpen, onClose }) => {
     links.push({
       to: 'auth',
       label: 'Авторизація',
-      exact: false,
+      exact: true,
       id: uuidv4(),
     });
   }

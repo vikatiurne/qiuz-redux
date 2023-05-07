@@ -1,13 +1,13 @@
+import {useState } from 'react';
 import { RxEyeOpen, RxEyeClosed } from 'react-icons/rx';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Button from '../../componets/UI/Button/Button';
 import Input from '../../componets/UI/Input/Input';
 
 import { authLogout, fetchAuth } from './authSlice';
 import styles from './Auth.module.css';
-import { Link, Navigate } from 'react-router-dom';
 
 const Auth = () => {
   const [inputEmail, setInputEmail] = useState('');
@@ -17,7 +17,7 @@ const Auth = () => {
   const [eye, setEye] = useState(true);
   const [inputType, setInputType] = useState('password');
 
-  const isAutentification = useSelector((state) => !!state.auth.token);
+  // const isAutentification = useSelector((state) => !!state.auth.token);
   const expires = useSelector((state) => state.auth.expires);
   const dispatch = useDispatch();
 
@@ -104,18 +104,17 @@ const Auth = () => {
             className={eye ? styles.hide : styles.visible}
           />
           <div className={styles.authActive}>
-            <Link to='/'>
-              
-            <Button
-              onclick={authHandler}
-              type="success"
-              valid={
-                inputPass.trim().length >= 8 && inputEmail.trim().length >= 8
-              }
-              title="Увійти"
-            >
-              Вхід
-            </Button>
+            <Link to="/">
+              <Button
+                onclick={authHandler}
+                type="success"
+                valid={
+                  inputPass.trim().length >= 8 && inputEmail.trim().length >= 8
+                }
+                title="Увійти"
+              >
+                Вхід
+              </Button>
             </Link>
             <Button
               onclick={registerHandler}
