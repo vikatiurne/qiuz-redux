@@ -30,7 +30,6 @@ const authSlice = createSlice({
   reducers: {
     authLogout: {
       reducer(state, action) {
-        console.log(action.payload);
         state.token = action.payload;
         // очистка localStorage
         localStorage.removeItem('token');
@@ -55,7 +54,6 @@ const authSlice = createSlice({
         localStorage.setItem('experitionDate', experitionDate);
         state.token = payload.idToken;
         state.expires = payload.expiresIn;
-        console.log(current(state));
       })
       .addCase(fetchAuth.rejected, (state, action) => {});
   },

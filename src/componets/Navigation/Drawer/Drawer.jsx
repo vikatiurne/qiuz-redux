@@ -9,7 +9,7 @@ const Drawer = ({ isOpen, onClose }) => {
   const isAutentification = useSelector((state) => !!state.auth.token);
 
   const links = [
-    { to: '/', label: 'Перелік тестів', exact: true, id: uuidv4() },
+    { to: '/', label: 'Перелік тестів',  id: uuidv4() },
   ];
 
   if (isAutentification) {
@@ -20,13 +20,13 @@ const Drawer = ({ isOpen, onClose }) => {
         exact: true,
         id: uuidv4(),
       },
-      { to: 'logout', label: 'Вихід', exact: true, id: uuidv4() }
+      { to: 'logout', label: 'Вихід',  id: uuidv4() }
     );
   } else {
     links.push({
       to: 'auth',
       label: 'Авторизація',
-      exact: true,
+      
       id: uuidv4(),
     });
   }
