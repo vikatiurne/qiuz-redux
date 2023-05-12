@@ -4,7 +4,9 @@
   min-height: 100vh;
   height: 100%;
   padding-bottom: 2.5em;
-  background: linear-gradient(270deg, #cef2fa 0%, #59bfef 100%);
+  background-image: url(../../assets/images/3188668.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .auth p {
   margin-bottom: 0.8em;

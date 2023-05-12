@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = { token: null, expires: 3600 };
+const initialState = { token: null };
 
 export const fetchAuth = createAsyncThunk(
   'auth/fetchAuth',
@@ -30,11 +30,17 @@ const authSlice = createSlice({
   reducers: {
     authLogout: {
       reducer(state, action) {
-        state.token = action.payload;
+        state = action.payload;
         // очистка localStorage
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('experitionDate');
+      },
+    },
+    autoLogin: {
+      reducer(state, action) {
+        state.token = action.payload.token;
+        state.expires = action.payload.expires;
       },
     },
   },
@@ -53,12 +59,15 @@ const authSlice = createSlice({
         // сохраняем время когда истечет сессия в localStorage
         localStorage.setItem('experitionDate', experitionDate);
         state.token = payload.idToken;
-        state.expires = payload.expiresIn;
+        const expires = payload.expiresIn;
+        setTimeout(() => {
+          authLogout({ token: null });
+        }, expires);
       })
       .addCase(fetchAuth.rejected, (state, action) => {});
   },
 });
 
-export const { authentication, authLogout } = authSlice.actions;
+export const { authentication, authLogout, autoLogin } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,12 +1,12 @@
-import {useState } from 'react';
+import { useState } from 'react';
 import { RxEyeOpen, RxEyeClosed } from 'react-icons/rx';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Button from '../../componets/UI/Button/Button';
 import Input from '../../componets/UI/Input/Input';
 
-import { authLogout, fetchAuth } from './authSlice';
+import { fetchAuth } from './authSlice';
 import styles from './Auth.module.css';
 
 const Auth = () => {
@@ -17,8 +17,6 @@ const Auth = () => {
   const [eye, setEye] = useState(true);
   const [inputType, setInputType] = useState('password');
 
-  // const isAutentification = useSelector((state) => !!state.auth.token);
-  const expires = useSelector((state) => state.auth.expires);
   const dispatch = useDispatch();
 
   const handlerInputEmail = (e) => {
@@ -47,9 +45,6 @@ const Auth = () => {
     setInputPass('');
     setTachedName(false);
     setTachedPass(false);
-    setTimeout(() => {
-      dispatch(authLogout(null));
-    }, expires * 1000);
   };
 
   const registerHandler = () => {

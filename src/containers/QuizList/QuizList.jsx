@@ -6,7 +6,7 @@ import styles from './QuizList.module.css';
 
 import Loader from '../../componets/UI/Loader/Loader';
 import { fetchQuizes, selectAllQuizes } from './quizListSlice';
-
+import { authLogout, autoLogin } from '../Auth/authSlice';
 
 const QuizList = () => {
   const quizes = useSelector(selectAllQuizes);
@@ -16,6 +16,25 @@ const QuizList = () => {
   useEffect(() => {
     if (quizStatus === 'idle') dispatch(fetchQuizes());
   }, [quizStatus, dispatch]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      dispatch(autoLogin({ token: null}));
+    } else {
+      const experitionDate = new Date(localStorage.getItem('experitionDate'));
+      if (experitionDate <= new Date()) {
+        dispatch(autoLogin({ token: null}));
+      } else {
+        dispatch(autoLogin({ token}));
+        const expires =
+          (experitionDate.getTime() - new Date().getTime()) / 1000;
+        setTimeout(() => {
+          dispatch(authLogout({ token: null }));
+        }, expires);
+      }
+    }
+  }, [dispatch]);
 
   const renderQuizList = quizes.map((quiz) => {
     return (

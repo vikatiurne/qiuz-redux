@@ -12,23 +12,24 @@ const Drawer = ({ isOpen, onClose }) => {
     { to: '/', label: 'Перелік тестів',  id: uuidv4() },
   ];
 
-  if (isAutentification) {
-    links.push(
-      {
-        to: 'quiz-creator',
-        label: 'Створити тест',
-        exact: true,
-        id: uuidv4(),
-      },
-      { to: 'logout', label: 'Вихід',  id: uuidv4() }
-    );
-  } else {
+  if (!isAutentification) {
     links.push({
       to: 'auth',
       label: 'Авторизація',
       
       id: uuidv4(),
     });
+  } else {
+    links.push(
+      {
+        to: 'quiz-creator',
+        label: 'Створити тест',
+        // exact: true,
+        id: uuidv4(),
+      },
+      { to: 'logout', label: 'Вихід',  id: uuidv4() }
+    );
+   
   }
   const linksList = links.map((link) => {
     return (
