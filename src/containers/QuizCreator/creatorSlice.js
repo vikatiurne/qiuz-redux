@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {  createSlice } from '@reduxjs/toolkit';
 import axios from '../../axios/axios-quiz';
 
 const initialState = { quiz: [] };
+
 
 const creatorSlice = createSlice({
   name: 'creater',
@@ -39,7 +40,9 @@ const creatorSlice = createSlice({
     resetCreate(state, action) {
       state.quiz = action.payload;
     },
+  
   },
+
 });
 
 export const { createQuiz, addQuestion, resetCreate } = creatorSlice.actions;

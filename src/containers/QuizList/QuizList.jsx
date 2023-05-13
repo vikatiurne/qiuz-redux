@@ -11,12 +11,13 @@ import { authLogout, autoLogin } from '../Auth/authSlice';
 const QuizList = () => {
   const quizes = useSelector(selectAllQuizes);
   const quizStatus = useSelector((state) => state.quizes.status);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (quizStatus === 'idle') dispatch(fetchQuizes());
+    if (quizStatus === 'idle' ) dispatch(fetchQuizes());
   }, [quizStatus, dispatch]);
-
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -28,7 +29,7 @@ const QuizList = () => {
       } else {
         dispatch(autoLogin({ token}));
         const expires =
-          (experitionDate.getTime() - new Date().getTime()) / 1000;
+          (experitionDate.getTime() - new Date().getTime());
         setTimeout(() => {
           dispatch(authLogout({ token: null }));
         }, expires);

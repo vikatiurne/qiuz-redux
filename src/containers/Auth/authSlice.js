@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const initialState = { token: null };
 
+
 export const fetchAuth = createAsyncThunk(
   'auth/fetchAuth',
   async ({ email, password, isLogin }) => {
@@ -62,7 +63,7 @@ const authSlice = createSlice({
         const expires = payload.expiresIn;
         setTimeout(() => {
           authLogout({ token: null });
-        }, expires);
+        }, expires*1000);
       })
       .addCase(fetchAuth.rejected, (state, action) => {});
   },
