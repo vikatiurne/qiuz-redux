@@ -32,6 +32,8 @@ const quizSlice = createSlice({
         const quiz = state;
         const id = action.payload;
         const userAnswer = id.split('-')[0];
+        const rightAnswer = quiz.quiz[quiz.numQuestion].rightAnswer
+        const idRightAnswer = `${rightAnswer}-${rightAnswer}`
         if (quiz.quizStatus !== 'success') {
           // проверка стиля для ответа
           if (quiz.answerState !== null) {
@@ -39,7 +41,8 @@ const quizSlice = createSlice({
           }
           // проверка ответа:
           // правильный ответ
-          if (userAnswer === quiz.quiz[quiz.numQuestion].rightAnswer) {
+        
+          if (userAnswer === rightAnswer) {
             //   счетчик правильных ответов
             quiz.qtyRightAnswers = quiz.qtyRightAnswers + 1;
             quiz.quiz[quiz.numQuestion].result = 'success';
@@ -50,8 +53,8 @@ const quizSlice = createSlice({
           } else {
             quiz.quiz[quiz.numQuestion].result = 'error';
             quiz.quiz[quiz.numQuestion].userAnswer = userAnswer;
-            // добавление стиля неправильному ответу
-            quiz.answerState = { [id]: 'error' };
+            // добавление стиля правильному и неправильному ответу
+            quiz.answerState = { [id]: 'error', [idRightAnswer]: 'success'};
           }
         }
       },

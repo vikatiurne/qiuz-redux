@@ -1,9 +1,12 @@
-import { FiCheck, FiX } from 'react-icons/fi';
-import Button from '../UI/Button/Button';
-import styles from './Finished.module.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { FiCheck, FiX } from 'react-icons/fi';
+import {v4 as uuidv4} from 'uuid'
+
 import { repeatTest } from '../../containers/Quiz/quizSlise';
+import Button from '../UI/Button/Button';
+
+import styles from './Finished.module.css';
 
 const Finished = () => {
   const state = useSelector((state) => state);
@@ -22,14 +25,14 @@ const Finished = () => {
       <ul>
         {quiz.map((item) => {
           return (
-            <li key={item.id}>
+            <li key={uuidv4()}>
               <p
                 className={`${item.result !== 'success' && styles.errorAnswer}`}
               >
                 <strong>{item.id}.</strong>&nbsp;{item.question}{' '}
                 {item.result !== 'success'
                   ? `(невірна відповідь - ${item.userAnswer})`
-                  : null}
+                  : `(${item.rightAnswer})`}
               </p>
               {item.result === 'success' ? (
                 <FiCheck className={styles.checkIcon} />

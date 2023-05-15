@@ -6,14 +6,10 @@ import styles from './Layout.module.css';
 const Layout = ({ children}) => {
   const [isOpen, setIsOpen] = useState(true);
  
-  const onClickMenuHandler = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <div className={styles.layout}>
       <Drawer isOpen={isOpen} onClose={() => setIsOpen(true)} />
-      <MenuToggle isOpen={isOpen} onToggle={onClickMenuHandler} />
+      <MenuToggle isOpen={isOpen} onToggle={()=>setIsOpen(prev=>!prev)} />
       <main>{children}</main>
     </div>
   );
